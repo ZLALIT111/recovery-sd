@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שחזור תמונות שנמחקו - הצילו את הזיכרונות שלכם!</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* --- General Styling --- */
+        :root {
+            --primary-blue: #0056b3;
+            --success-green: #28a745;
+            --danger-red: #dc3545;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: var(--dark-gray);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0, 86, 179, 0.8), rgba(0, 86, 179, 0.8)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 80px 20px 60px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        /* --- Story Section --- */
+        .story-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .story-section .container {
+            max-width: 700px;
+        }
+        .story-section h2 {
+            font-size: 2.2rem;
+            color: var(--danger-red);
+            margin-bottom: 20px;
+        }
+        .story-section p {
+            font-size: 1.15rem;
+            margin-bottom: 30px;
+        }
+        .problems-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: right;
+            display: inline-block;
+        }
+        .problems-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .problems-list i {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+            margin-left: 15px;
+        }
+        .emotional-core {
+            font-style: italic;
+            color: #555;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+        .hope-pivot {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--success-green);
+        }
+
+        /* --- Features/Promise Section --- */
+        .features {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+        .features .container h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--primary-blue);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 30px;
+        }
+        .feature-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            border-top: 4px solid var(--success-green);
+            display: flex;
+            flex-direction: column;
+        }
+        .feature-item p { flex-grow: 1; }
+        .feature-item i {
+            font-size: 3rem;
+            color: var(--success-green);
+            margin-bottom: 15px;
+        }
+        .feature-item h3 { font-size: 1.4rem; margin-bottom: 10px; }
+
+        /* --- NEW: FAQ Section --- */
+        .faq-section {
+            padding: 60px 0;
+            background-color: #fff;
+        }
+        .faq-section .container {
+            max-width: 800px;
+        }
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--primary-blue);
+        }
+        .faq-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: white;
+            overflow: hidden; /* For border-radius to work with children */
+        }
+        .faq-item summary {
+            font-weight: 700;
+            font-size: 1.15rem;
+            padding: 20px;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        .faq-item summary:hover {
+            background-color: var(--light-gray);
+        }
+        .faq-item summary::-webkit-details-marker {
+            display: none; /* Hide default marker on Chrome/Safari */
+        }
+        .faq-item summary::marker {
+            display: none; /* Hide default marker on Firefox */
+        }
+        .faq-item summary::after {
+            content: '\f067'; /* Font Awesome plus icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            transition: transform 0.3s ease;
+        }
+        .faq-item[open] summary {
+            background-color: var(--light-gray);
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+            content: '\f00d'; /* Font Awesome times/close icon */
+        }
+        .faq-answer {
+            padding: 20px;
+            background-color: var(--light-gray);
+        }
+ /* --- NEW: How It Works Section --- */
+    .how-it-works {
+      padding: 60px 0;
+      /* הרקע כבר לבן, אפשר לשנות אם רוצים להבליט */
+    }
+    .how-it-works h2 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      color: var(--primary-blue);
+    }
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+    .step-item h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      margin-top: 20px;
+      color: var(--dark-gray);
+    }
+    .step-item p {
+      font-size: 1.05rem;
+      color: #555;
+    }
+    .step-icon-wrapper {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto;
+      background-color: var(--light-gray);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--primary-blue);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .step-icon-wrapper i {
+      font-size: 2.8rem;
+      color: var(--primary-blue);
+    }
+
+  
+    }
+        
+        /* --- CTA & Form Section --- */
+        .cta-form { padding: 60px 0; background-color: var(--light-gray); }
+        .cta-form .container { max-width: 800px; }
+        .warning-box {
+            background-color: #fffbe6;
+            border: 1px solid #ffe58f;
+            border-right: 5px solid var(--danger-red);
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .warning-box i { color: var(--danger-red); font-size: 2rem; margin-left: 20px; }
+        .form-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .form-container h2 { text-align: center; margin-bottom: 30px; font-size: 1.8rem; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 700; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Assistant', sans-serif;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+        }
+        .submit-btn {
+            width: 100%;
+            background-color: var(--success-green);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover { background-color: #218838; }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark-gray);
+            color: #ccc;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1.1rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .form-container { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>נמחקו לכם התמונות מכרטיס הזיכרון?</h1>
+            <p>אל תתייאשו! ברוב המקרים אפשר לשחזר את הזיכרונות היקרים שלכם.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="story-section">
+            <div class="container">
+                <h2>זה הרגע שבו הלב צונח לרצפה.</h2>
+                <p>
+                    חזרתם מחופשה משפחתית, מאירוע מרגש או מיום הולדת בלתי נשכח, חיכיתם בקוצר רוח להעלות את התמונות למחשב, ואז גיליתם שהכל פשוט נעלם.
+                </p>
+                <ul class="problems-list">
+                    <li><i class="fas fa-exclamation-circle"></i> הודעת "שגיאה" מסתורית על הכרטיס.</li>
+                    <li><i class="fas fa-sync-alt"></i> המחשב דורש "לאתחל את הכונן".</li>
+                    <li><i class="fas fa-plug"></i> כרטיס הזיכרון פשוט לא מזוהה.</li>
+                    <li><i class="fas fa-mouse-pointer"></i> קליק אחד שגוי של "מחק" או "פירמוט".</li>
+                </ul>
+                <p class="emotional-core">
+                    התסכול הזה, התחושה שרגעים שלא יחזרו פשוט התפוגגו, הוא עצום. כי אלו לא סתם קבצים – אלו הזיכרונות שלכם.
+                </p>
+                <p class="hope-pivot">
+                    אבל זה לא חייב להיות אבוד. יש תקווה!
+                </p>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>בדיוק בגלל זה אנחנו כאן <br/> שירות שיחזור נתונים מקצועי ומהיר</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <h3>בלי סיכון כספי</h3>
+                        <p>לא הצלחנו לשחזר? לא שילמתם שקל. הבדיקה הראשונית תמיד בחינם, בלי אותיות קטנות.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-user-shield"></i>
+                        <h3>פרטיות מוחלטת</h3>
+                        <p>אנו מבינים את הרגישות. התהליך מתבצע בדיסקרטיות מלאה תוך שמירה מוחלטת על התמונות שלכם.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-rocket"></i>
+                        <h3>תהליך פשוט ומהיר</h3>
+                        <p>בלי מונחים טכניים מסובכים ובלי כאבי ראש. נסביר לכם הכל בפשטות ונחזיר את התמונות במהירות.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-desktop"></i>
+                        <h3>אפשרות לשליטה מרחוק</h3>
+                        <p>לא יכולים להגיע אלינו? אין בעיה. נוכל לבצע את השחזור מרחוק, בנוחות ובבטחה, ישירות מהמחשב שלכם.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>איך התהליך עובד?</h2>
+        <div class="steps-container">
+
+          <!-- Step 1 -->
+          <div class="step-item">
+            <div class="step-icon-wrapper">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h3>שלב 1: יוצרים קשר</h3>
+            <p>ממלאים את הטופס. נשאל כמה שאלות פשוטות כדי להבין את המקרה ונתאם את הדרך הנוחה ביותר לבדיקה (אצלנו במעבדה או בשליטה מרחוק).</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-item">
+            <div class="step-icon-wrapper">
+              <i class="fas fa-search-plus"></i>
+            </div>
+            <h3>שלב 2: בדיקה והצעת מחיר</h3>
+            <p>נבצע אבחון מקצועי ויסודי של הכרטיס שלכם - <strong>לגמרי בחינם</strong>. בסיום הבדיקה, תקבלו מאיתנו הצעת מחיר מדויקת והוגנת. ההחלטה אם להמשיך היא כולה שלכם, ללא שום התחייבות.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-item">
+            <div class="step-icon-wrapper">
+              <i class="fas fa-photo-video"></i>
+            </div>
+            <h3>שלב 3: שחזור והצלה!</h3>
+            <p>לאחר קבלת אישורכם, נפעיל את הכלים המתקדמים שלנו ונשחזר את הזיכרונות שלכם. בסיום התהליך, תקבלו את כל התמונות והסרטונים היקרים שלכם בחזרה, שמורים ובטוחים.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+        <section class="cta-form">
+            <div class="container">
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>חשוב מאוד:</strong> אל תנסו לצלם או לשמור קבצים חדשים על הכרטיס! כל פעולה כזו עלולה לגרום נזק בלתי הפיך ולמחוק את התמונות לצמיתות.
+                    </div>
+                </div>
+                
+                <div class="form-container">
+                    <h2>השאירו פרטים ונחזור אליכם לבדיקה חינם!</h2>
+                    <form action="https://formspree.io/f/mpwjegnb" method="POST">
+                        <div class="form-group">
+                            <label for="name">שם מלא:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">טלפון או מייל: (עדיף גם וגם)</label>
+                            <input type="text" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">תיאור קצר של הבעיה:</label>
+                            <textarea id="message" name="message" rows="3" placeholder="למשל: 'כרטיס זיכרון של מצלמת קנון, מציג שגיאה'"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">כן, הצילו לי את התמונות! <i class="fas fa-camera-retro"></i></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="faq-section">
+            <div class="container">
+                <h2>שאלות ותשובות נפוצות</h2>
+
+                <details class="faq-item">
+                    <summary>איפה מוסרים את הכרטיס? ומה אם אני לא מהאזור?</summary>
+                    <div class="faq-answer">
+                        <p>המעבדה שלנו ממוקמת <strong>בבני ברק</strong>. לאחר שיחת טלפון קצרה, נתאם איתכם מסירה נוחה. אם אינכם מהאזור, אל דאגה! בחלק גדול מהמקרים ניתן לבצע את <strong>השחזור בשליטה מרחוק</strong>, ישירות על המחשב שלכם, ללא צורך להגיע אלינו פיזית.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>כמה עולה השחזור?</summary>
+                    <div class="faq-answer">
+                        <p>זו השאלה החשובה ביותר, והתשובה שלנו פשוטה: <strong>הבדיקה הראשונית היא תמיד בחינם.</strong> רק לאחר שנבין את מורכבות הבעיה ונוודא שאכן ניתן לשחזר את הקבצים, נספק הצעת מחיר הוגנת ושקופה. העיקרון שלנו הוא: <strong>לא הצלחנו לשחזר - לא שילמתם.</strong></p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>כמה זמן לוקח התהליך?</summary>
+                    <div class="faq-answer">
+                        <p>זה תלוי בגודל הכרטיס ובחומרת הנזק. שחזור סטנדרטי יכול לקחת בין שעה למספר שעות. במקרים מורכבים יותר זה עלול לקחת יום או יומיים. בכל מקרה, אנו מתחייבים לעדכן אתכם בכל שלב ולפעול במהירות המרבית כדי להחזיר לכם את הזיכרונות.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary>מה הסיכוי להצליח לשחזר את התמונות שלי?</summary>
+                    <div class="faq-answer">
+                        <p>הסיכויים גבוהים מאוד, במיוחד במקרים של מחיקה בשוגג או פירמוט. הכלל החשוב ביותר הוא <strong>להפסיק להשתמש בכרטיס מיד</strong> כשמגלים את הבעיה. כל תמונה חדשה שתצולם או קובץ שיישמר עליו עלול "לדרוס" את המידע הישן ולהפוך את השחזור לבלתי אפשרי.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>למה לא להשתמש בתוכנה חינמית שמצאתי באינטרנט?</summary>
+                    <div class="faq-answer">
+                        <p>זו טעות נפוצה שעלולה לגרום לנזק בלתי הפיך. תוכנות לא מקצועיות עלולות לכתוב מידע על הכרטיס תוך כדי "ניסיון" השחזור, ובכך למחוק את התמונות לצמיתות. שירות מקצועי משתמש בכלים ייעודיים שמבטיחים שלא ייגרם נזק נוסף לכרטיס המקורי.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary>האם הפרטיות שלי נשמרת?</summary>
+                    <div class="faq-answer">
+                        <p>בהחלט. אנו מבינים את רגישות התוכן האישי ומתחייבים לדיסקרטיות מוחלטת. רק איש המקצוע שמטפל בשחזור שלכם נחשף לקבצים, והם נמחקים לחלוטין מהמערכות שלנו לאחר מסירתם אליכם.</p>
+                    </div>
+                </details>
+                
+            </div>
+        </section>
+
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; צל של עצמו 2025</p>
+        </div>
+    </footer>
+
+</body>
+</html>
